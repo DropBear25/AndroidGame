@@ -30,26 +30,28 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Awake(){
 
-        aimTransform = transform.Find("Aim");
+      //  aimTransform = transform.Find("Aim");
     }
 
 
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
 
         HandleAiming();
-        HandleShooting();
+        /*   HandleShooting();  //Michelle Rotation Script Mouse Position to rotate Gun 
 
-        Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
+            Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
+            Vector3 aimDirection = (mousePosition - transform.position).normalized;
+            float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+            aimTransform.eulerAngles = new Vector3(0, 0, angle);
+            Debug.Log(angle);
+        }
 
-        Vector3 aimDirection = (mousePosition - transform.position).normalized;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        aimTransform.eulerAngles = new Vector3(0, 0, angle);
-        Debug.Log(angle);
+    */
     }
-
-    private void HandleAiming()
+        private void HandleAiming()
     {
 
     }
