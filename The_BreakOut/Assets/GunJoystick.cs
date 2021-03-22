@@ -7,28 +7,35 @@ using System;
 public class GunJoystick : MonoBehaviour
 {
 
-    public Joystick joystick;
-    public GameObject Object;
-    Vector2 GameobjectRotation;
-    private float GameobjectRotation2;
-    private float GameobjectRotation3;
+	public Joystick joystick;
+	public GameObject Object;
+	Vector2 GameobjectRotation;
+	private float GameobjectRotation2;
+	private float GameobjectRotation3;
 
-    public bool FacingRight = true;
-
-
-    void Awake()
-    {
-     //   aimTransform = transform.Find("Aim");
-     //   aimAnimator = aimTransform.GetComponent<Animator>();
-    }
+	public bool FacingRight = true;
 
 
+	//[SerializeField] private Transform pbullet;
+
+	public GameObject bulletprefab;
+	public Transform firePoint;
+
+	float lookAngle;
+	public float bulletSpeed = 50;
+
+	[HideInInspector]
+	public bool canShoot = true;
+	private float nextTimeOfFire = 0;
+
+	
 
 
 
-    void Update()
-    {
-		HandleShooting();
+
+	void Update()
+	{
+		Shoot();
 
 		//Gets the input from the jostick
 		GameobjectRotation = new Vector2(joystick.Horizontal, joystick.Vertical);
@@ -36,11 +43,12 @@ public class GunJoystick : MonoBehaviour
 
 		if (FacingRight)
 		{
-			
+
 			//Rotates the object if the player is facing right
 			GameobjectRotation2 = GameobjectRotation.x + GameobjectRotation.y * 90;
 			Object.transform.rotation = Quaternion.Euler(0f, 0f, GameobjectRotation2);
-		//	HandleShooting();
+			//	firePoint.rotation = Quaternion.Euler(0, 0, lookAngle);
+			//	HandleShooting();
 		}
 		else
 		{
@@ -58,12 +66,10 @@ public class GunJoystick : MonoBehaviour
 			// Executes the void: Flip()
 			Flip();
 		}
+	
+	
 	}
 
-	//private void HandleShooting()
-	//{
-		//throw new NotImplementedException();
-	//}
 
 	private void Flip()
 	{
@@ -72,10 +78,18 @@ public class GunJoystick : MonoBehaviour
 
 		transform.Rotate(0, 180, 0);
 	}
-	private void HandleShooting()
+	private void Shoot()
 	{
-		
+		canShoot = false;
+		Instantiate(bulletprefab, firePoint.position, transform.rotation);
+		//	StartCoroutine(ShotCooldown());
+
 	}
+	//	IEnumerator ShotCooldown()
+	//{
+
+	//yield return new WaitForSeconds(timeBetweenShots);
+	//	canShoot = true;
 
 }
 
